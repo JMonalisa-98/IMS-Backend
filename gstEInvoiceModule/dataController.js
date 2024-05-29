@@ -98,8 +98,9 @@ exports.genrateEwayIrn = async (req, res) => {
 };
 
 exports.genrateImvMovement = async (req, res) => {
+  console.log(req.body);
   const url =
-    "https://staging.fynamics.co.in/api/eway/enhanced/initiate-multi-vehicle";
+    "https://staging.fynamics.co.in/api/eway/initiate-multi-vehicle";
   const data = req.body.formData;
 
   const headers = {
@@ -121,9 +122,9 @@ exports.genrateImvMovement = async (req, res) => {
     });
 };
 
-exports.updateVehicleMovement = async (req, res) => {
+exports.updateVehicleNumber = async (req, res) => {
   const url = "https://staging.fynamics.co.in/api/eway/enhanced/update-partb";
-  const data = req.body.formData;
+  const data = req.body.formData
 
   const headers = {
     Authorization: `Bearer ${process.env.FYN_TOKEN}`,
@@ -433,6 +434,52 @@ exports.ewayGenConsigner = async (req, res) => {
   axios
     .get(url, { headers })
     .then((response) => {
+      res.send(response.data);
+    })
+    .catch((error) => {
+      res.send(error);
+    });
+};
+
+exports.ewayBillByDate = async (req, res) => {
+  console.log(req.body);
+  const data = req.body.formData;
+  const url = `https://staging.fynamics.co.in/api/eway/enhanced/bills-by-date/${data}`;
+  const headers = {
+    Authorization: `Bearer ${process.env.FYN_TOKEN}`,
+
+    gstin: req.body.auth.gst,
+    authtoken: req.body.auth.authToken,
+    sek: req.body.auth.Sek,
+  };
+
+  axios
+    .get(url, { headers })
+    .then((response) => {
+      console.log(response.data);
+      res.send(response.data);
+    })
+    .catch((error) => {
+      res.send(error);
+    });
+};
+
+exports.ewayBillRejectedByDate = async (req, res) => {
+  console.log(req.body);
+  const data = req.body.formData;
+  const url = `https://staging.fynamics.co.in/api/eway/enhanced/bills-rejected-by-date/${data}`;
+  const headers = {
+    Authorization: `Bearer ${process.env.FYN_TOKEN}`,
+
+    gstin: req.body.auth.gst,
+    authtoken: req.body.auth.authToken,
+    sek: req.body.auth.Sek,
+  };
+
+  axios
+    .get(url, { headers })
+    .then((response) => {
+      console.log(response.data);
       res.send(response.data);
     })
     .catch((error) => {

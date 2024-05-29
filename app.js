@@ -64,23 +64,25 @@ const {
   genrateChangeMultiVehicles,
   genrateGenConsolidatedEwayBill,
   getConsEwayBill,
-  updateVehicleMovement,
+  updateVehicleNumber,
   cancelEwayBill,
   rejectEwayBill,
   updateTransporter,
   extendValidity,
   ewayBillDetails,
   otherPartyEWayBill,
-  ewayGenConsigner
+  ewayGenConsigner,
+  ewayBillRejectedByDate,
+  ewayBillByDate
 } = require("./gstEInvoiceModule/dataController");
 
-app.post("/e-invoice", getApi);
-app.post("/generate-invoice", genrateIRN);
-app.post("/generate-imv-movement",genrateImvMovement);
-app.post("/add/multi-vehicles",genrateAddMultiVehicles);
-app.post("/generate-change-multi-vehicles",genrateChangeMultiVehicles);
-app.post("/generate-gen-cons-ewaybill",genrateGenConsolidatedEwayBill);
-app.post("/update/vehicle-number",updateVehicleMovement);
+ app.post("/e-invoice", getApi);
+ app.post("/generate-invoice", genrateIRN);
+ app.post("/generate-imv-movement",genrateImvMovement);
+ app.post("/add/multi-vehicles",genrateAddMultiVehicles);
+ app.post("/generate-change-multi-vehicles",genrateChangeMultiVehicles);
+ app.post("/generate-gen-cons-ewaybill",genrateGenConsolidatedEwayBill);
+app.post("/api/eway/update-partb/vehicle-number",updateVehicleNumber);
 app.post("/api/eway/enhanced/cancel",cancelEwayBill);
 app.post("/api/eway/enhanced/reject",rejectEwayBill);
 app.post("/api/eway/enhanced/update-transporter",updateTransporter);
@@ -88,6 +90,8 @@ app.post("/api/eway/enhanced/extend",extendValidity);
 app.post("/get/api/eway/enhanced/details", ewayBillDetails);
 app.post("/get/api/eway/enhanced/other-parties", otherPartyEWayBill);
 app.post("/get/api/eway/enhanced/bills-generated-consigner", ewayGenConsigner);
+app.post("/get/api/eway/enhanced/bills-by-date", ewayBillByDate);
+app.post("/get/api/eway/enhanced/bills-rejected-by-date", ewayBillRejectedByDate);
 app.get("/get-cons-eway-bil", getConsEwayBill);
 app.post("/generate-eway-bill", genrateEway);
 app.post("/irn/generate-eway-bill", genrateEwayIrn);
